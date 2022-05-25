@@ -3,13 +3,15 @@
 <!-- ABOUT THE PROJECT -->
 # Project Library
 <br />
-### Retrofit 
+## Retrofit 
 
 # Features:
 1.Register
 <br>
-2.Login
+2.Login 
+<br>
 3.Show Balance
+<br>
 4.Show history transaction
 
 ## Architecture : MVVM
@@ -17,7 +19,9 @@
 
 ## Library used in project:
 1.Material Component
+<br>
 2.Retrofit
+<br>
 3.Android Jetpack Library
 
 
