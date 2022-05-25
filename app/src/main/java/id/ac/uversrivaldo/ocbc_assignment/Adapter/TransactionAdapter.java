@@ -45,13 +45,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         Object receipient = t.get("receipient");
         LinkedTreeMap<Object,Object> r = (LinkedTreeMap) receipient;
+        Double amount = (Double) t.get("amount");
         String accountHolder = r.get("accountHolder").toString();
         String accountNo = r.get("accountNo").toString();
 
         Log.e("accountNo", accountNo);
 
 
-
+        holder.amount.setText(amount.toString());
         holder.accountHolder.setText(accountHolder);
         holder.accountNo.setText(accountNo);
     }
@@ -66,12 +67,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         TextView accountHolder;
         TextView accountNo;
+        TextView amount;
 
         public TransactionAdapterVH(@NonNull View itemView) {
             super(itemView);
 
             accountHolder = itemView.findViewById(R.id.accountHolder);
             accountNo = itemView.findViewById(R.id.accountNo);
+            amount = itemView.findViewById(R.id.Amount);
 
         }
     }

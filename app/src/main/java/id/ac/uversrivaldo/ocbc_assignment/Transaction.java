@@ -2,13 +2,13 @@ package id.ac.uversrivaldo.ocbc_assignment;
 
 public class Transaction {
     private String transactionId;
-    private double amount;
+    private Double amount;
     private String description;
     private String transactionType;
     private Receipient receipient;
 
 
-    public Transaction(String transactionId, double amount, String description, String transactionType, Receipient receipient) {
+    public Transaction(String transactionId, Double amount, String description, String transactionType, Receipient receipient) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.description = description;
@@ -31,7 +31,7 @@ public class Transaction {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
