@@ -1,22 +1,15 @@
-package id.ac.uversrivaldo.ocbc_assignment;
+package id.ac.uversrivaldo.ocbc_assignment.Model;
 
-public class Transaction {
-    private String transactionId;
-    private Double amount;
-    private String description;
-    private String transactionType;
-    private Receipient receipient;
+public class User {
 
+    private String transactionId, amount, transactionDate, description, transactionType;
 
-    public Transaction(String transactionId, Double amount, String description, String transactionType, Receipient receipient) {
+    public User(String transactionId, String amount, String transactionDate, String description, String transactionType) {
         this.transactionId = transactionId;
         this.amount = amount;
+        this.transactionDate = transactionDate;
         this.description = description;
         this.transactionType = transactionType;
-        this.receipient = receipient;
-    }
-
-    public Transaction() {
     }
 
     public String getTransactionId() {
@@ -27,12 +20,20 @@ public class Transaction {
         this.transactionId = transactionId;
     }
 
-    public double getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(String transactionDate) {
+        this.transactionDate = transactionDate;
     }
 
     public String getDescription() {
@@ -49,13 +50,5 @@ public class Transaction {
 
     public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
-    }
-
-    public Receipient getReceipient() {
-        return receipient;
-    }
-
-    public void setReceipient(Receipient receipient) {
-        this.receipient = receipient;
     }
 }

@@ -1,4 +1,4 @@
-package id.ac.uversrivaldo.ocbc_assignment.Response;
+package id.ac.uversrivaldo.ocbc_assignment.Model;
 
 public class LoginResponse {
 
@@ -7,22 +7,15 @@ public class LoginResponse {
     private String status;
     private String accountNo;
     private String token;
+    private String error;
     private int balance;
 
-
-    @Override
-    public String toString() {
-        return "LoginResponse{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", status='" + status + '\'' +
-                ", accountNo='" + accountNo + '\'' +
-                ", balance=" + balance +
-                '}';
+    public String getError() {
+        return error;
     }
 
-    public LoginResponse(String token) {
-        this.token = token;
+    public void setError(String error) {
+        this.error = error;
     }
 
     public String getToken() {

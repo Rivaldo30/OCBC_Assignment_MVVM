@@ -15,7 +15,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.List;
 
 import id.ac.uversrivaldo.ocbc_assignment.R;
-import id.ac.uversrivaldo.ocbc_assignment.Transaction;
+import id.ac.uversrivaldo.ocbc_assignment.Model.Transaction;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionAdapterVH> {
 

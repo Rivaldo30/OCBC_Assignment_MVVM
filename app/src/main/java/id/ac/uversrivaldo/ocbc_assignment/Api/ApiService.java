@@ -1,9 +1,8 @@
 package id.ac.uversrivaldo.ocbc_assignment.Api;
 
-import id.ac.uversrivaldo.ocbc_assignment.Response.BalanceResponse;
-import id.ac.uversrivaldo.ocbc_assignment.LoginRequest;
-import id.ac.uversrivaldo.ocbc_assignment.Response.LoginResponse;
-import id.ac.uversrivaldo.ocbc_assignment.Response.TransactionsResponse;
+import id.ac.uversrivaldo.ocbc_assignment.Model.BalanceResponse;
+import id.ac.uversrivaldo.ocbc_assignment.Model.LoginResponse;
+import id.ac.uversrivaldo.ocbc_assignment.Model.TransactionsResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -13,7 +12,7 @@ public interface ApiService {
 
 
     @POST("login/")
-    Call<LoginResponse> userLogin(@Body LoginRequest loginRequest);
+    Call<LoginResponse> userLogin(@Body LoginResponse loginResponse);
 
     @GET("balance")
     Call<BalanceResponse> balance();

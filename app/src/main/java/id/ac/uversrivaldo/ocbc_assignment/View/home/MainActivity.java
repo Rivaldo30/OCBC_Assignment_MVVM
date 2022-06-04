@@ -1,4 +1,4 @@
-package id.ac.uversrivaldo.ocbc_assignment.Activity;
+package id.ac.uversrivaldo.ocbc_assignment.View.home;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.uversrivaldo.ocbc_assignment.Api.ApiClient;
-import id.ac.uversrivaldo.ocbc_assignment.Response.BalanceResponse;
+import id.ac.uversrivaldo.ocbc_assignment.Model.BalanceResponse;
 import id.ac.uversrivaldo.ocbc_assignment.R;
-import id.ac.uversrivaldo.ocbc_assignment.Transaction;
+import id.ac.uversrivaldo.ocbc_assignment.Model.Transaction;
 import id.ac.uversrivaldo.ocbc_assignment.Adapter.TransactionAdapter;
-import id.ac.uversrivaldo.ocbc_assignment.Response.TransactionsResponse;
+import id.ac.uversrivaldo.ocbc_assignment.Model.TransactionsResponse;
+import id.ac.uversrivaldo.ocbc_assignment.viewmodels.MainActivityViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TransactionAdapter transactionAdapter;
     List<Transaction> transactionList = new ArrayList<>();
+    private MainActivityViewModel mMainActivityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +45,24 @@ public class MainActivity extends AppCompatActivity {
         sgDollar = findViewById(R.id.sgDollar);
         accNumber = findViewById(R.id.accountNumber);
         accName = findViewById(R.id.accountName);
-
         recyclerView = findViewById(R.id.recycleView);
+
+        mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        mMainActivityViewModel.getTransaction();
+
+        balance();
+
+        transactions();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
 
         SharedPreferences sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         accName.setText("" + sharedPreferences.getString("username", null));
         accNumber.setText("" + sharedPreferences.getString("accountNo", null));
 
-        balance();
 
-        transactions();
 
 
     }

@@ -1,4 +1,4 @@
-package id.ac.uversrivaldo.ocbc_assignment;
+package id.ac.uversrivaldo.ocbc_assignment.Model;
 
 public class Receipient {
 

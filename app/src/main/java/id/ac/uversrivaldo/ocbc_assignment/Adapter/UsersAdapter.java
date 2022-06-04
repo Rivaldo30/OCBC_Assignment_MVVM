@@ -4,7 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
-import id.ac.uversrivaldo.ocbc_assignment.Response.LoginResponse;
+import id.ac.uversrivaldo.ocbc_assignment.Model.LoginResponse;
 
 public class UsersAdapter {
 
