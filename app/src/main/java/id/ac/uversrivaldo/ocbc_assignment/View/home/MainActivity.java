@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,100 +33,80 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     public static final String SHARED_PREF_NAME = "my_shared_pref";
-    TextView sgDollar, accNumber, accName;
+    TextView sgDollar, accNumber, accName, noResutlt;
     RecyclerView recyclerView;
     TransactionAdapter transactionAdapter;
     List<Transaction> transactionList = new ArrayList<>();
     private MainActivityViewModel mMainActivityViewModel;
+    private List<TransactionsResponse> transactions;
+    private TransactionAdapter adapter;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         sgDollar = findViewById(R.id.sgDollar);
         accNumber = findViewById(R.id.accountNumber);
         accName = findViewById(R.id.accountName);
+        noResutlt = findViewById(R.id.noResultTv);
         recyclerView = findViewById(R.id.recycleView);
 
+
+        adapter = new TransactionAdapter(this, transactionList);
+        recyclerView.setAdapter(adapter);
+
+        //intisialisasi ViewModel
         mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        mMainActivityViewModel.getTransaction();
 
         balance();
-
         transactions();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-
         SharedPreferences sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         accName.setText("" + sharedPreferences.getString("username", null));
         accNumber.setText("" + sharedPreferences.getString("accountNo", null));
-
-
-
-
     }
 
-    public void balance() {
-
-        Call<BalanceResponse> balanceResponseCall = ApiClient.getApiService(getApplicationContext()).balance();
-        balanceResponseCall.enqueue(new Callback<BalanceResponse>() {
+    public void balance(){
+        mMainActivityViewModel.setBalance(this);
+        mMainActivityViewModel.getmBalance().observe(this, new Observer<BalanceResponse>() {
             @Override
-            public void onResponse(Call<BalanceResponse> call, Response<BalanceResponse> response) {
-                if (response.isSuccessful()) {
-
-                    Log.e("Balance", String.valueOf(response.body().getBalance()));
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            BalanceResponse loginResponse = response.body();
-
-                            sgDollar.setText("SGD " + loginResponse.getBalance());
-
-                        }
-                    }, 50);
+            public void onChanged(BalanceResponse balanceResponse) {
+                if (balanceResponse.getStatus().isEmpty()){
+                    noResutlt.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(MainActivity.this, "Failed get balance from server", Toast.LENGTH_SHORT).show();
+                    Log.d("TAG", "onChanged: Balance"+balanceResponse);
+                    BalanceResponse loginResponse = balanceResponse;
+                    sgDollar.setText("SGD " + loginResponse.getBalance());
                 }
-            }
-
-            @Override
-            public void onFailure(Call<BalanceResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Throwable" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void transactions() {
-
-        Call<TransactionsResponse> transactionsResponseCall = ApiClient.getApiService(getApplicationContext()).transactions();
-        transactionsResponseCall.enqueue(new Callback<TransactionsResponse>() {
+    //model-ViewModel
+    public void transactions(){
+        mMainActivityViewModel.setTransaction(this);
+        mMainActivityViewModel.getmTransactionObserver().observe(this, new Observer<TransactionsResponse>() {
             @Override
-            public void onResponse(Call<TransactionsResponse> call, Response<TransactionsResponse> response) {
-                if (response.isSuccessful()) {
+            public void onChanged(TransactionsResponse transactionsResponse) {
+                if (transactionsResponse.getData().isEmpty()) {
 
-                    Log.e("Transaction", String.valueOf(response.body().getData()));
-
+                    noResutlt.setVisibility(View.VISIBLE);
+                } else {
                     transactionAdapter = new TransactionAdapter(transactionList);
                     recyclerView.setAdapter(transactionAdapter);
-
-                    transactionList.addAll(response.body().getData());
-
+                    transactionList.addAll(transactionsResponse.getData());
                     transactionAdapter.notifyDataSetChanged();
-
-
+                    noResutlt.setVisibility(View.GONE);
                 }
-            }
-
-            @Override
-            public void onFailure(Call<TransactionsResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Throwable" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 }

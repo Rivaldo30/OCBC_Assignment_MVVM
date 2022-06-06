@@ -17,7 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     public static final String SHARED_PREF_NAME = "my_shared_pref";
+    public static String BASE_URL = "https://green-thumb-64168.uc.r.appspot.com/";
 
+    private static Retrofit retrofit;
     private static Retrofit getRetrofitNoAuth(){
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -36,7 +38,7 @@ public class ApiClient {
 
     }
 
-    private static Retrofit getRetrofit(Context ctx){
+    public static Retrofit getRetrofit(Context ctx){
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -67,6 +69,16 @@ public class ApiClient {
 
         return retrofit;
 
+    }
+
+    public static Retrofit getRetroClient(){
+        if (retrofit == null){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
     }
 
     public static ApiService getApiServiceNoAuth(){

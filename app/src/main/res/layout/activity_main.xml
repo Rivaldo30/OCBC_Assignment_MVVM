@@ -39,7 +39,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="6dp"
         android:text="You have"
-        android:textColor="@color/black"
+        android:textColor="#BABABA"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
@@ -51,7 +51,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/product_sans_bold"
         android:text="SGD 21, 421.33"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="23dp"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -75,7 +75,7 @@
         android:layout_marginTop="6dp"
         android:fontFamily="@font/product_sans_bold"
         android:text="Number"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -99,7 +99,7 @@
         android:layout_marginTop="6dp"
         android:fontFamily="@font/product_sans_bold"
         android:text="Name"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -130,6 +130,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/noResultTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="411dp"
+        android:layout_marginBottom="731dp"
+        android:fontFamily="@font/product_sans_black"
+        android:text="NO RESULT FOUND"
+        android:textSize="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"

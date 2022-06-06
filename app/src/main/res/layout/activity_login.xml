@@ -35,7 +35,7 @@
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#EE2722"
+            android:textColor="#000000"
             android:fontFamily="@font/product_sans_regular"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:textColor="#EE2722"
+            android:textColor="#000000"
             android:fontFamily="@font/product_sans_regular"/>
     </com.google.android.material.textfield.TextInputLayout>
 

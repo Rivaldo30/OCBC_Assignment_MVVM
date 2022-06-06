@@ -14,8 +14,9 @@ import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.List;
 
-import id.ac.uversrivaldo.ocbc_assignment.R;
 import id.ac.uversrivaldo.ocbc_assignment.Model.Transaction;
+import id.ac.uversrivaldo.ocbc_assignment.Model.TransactionsResponse;
+import id.ac.uversrivaldo.ocbc_assignment.R;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionAdapterVH> {
 
@@ -24,9 +25,20 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public int size = 0;
 
 
-    public TransactionAdapter(List<Transaction> transactionList) {
+    public TransactionAdapter(Context context, List<Transaction> transactionList) {
+        this.context = context;
         this.transactionList = transactionList;
     }
+
+    public TransactionAdapter(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
+        notifyDataSetChanged();
+    }
+
+//    public void setTransactionList(List<Transaction> transactionList){
+//        this.transactionList = transactionList;
+//        notifyDataSetChanged();
+//    }
 
 
     @NonNull
@@ -39,6 +51,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(@NonNull TransactionAdapterVH holder, int position) {
 
+//        holder.accountHolder.setText(this.transactionList.get(position).getReceipient().getAccountHolder().toString());
+//        holder.accountNo.setText(this.transactionList.get(position).getReceipient().getAccountNo());
+//        holder.amount.setText((int) this.transactionList.get(position).getAmount());
+
 
         Object transaction = transactionList.get(position);
         LinkedTreeMap<Object,Object> t = (LinkedTreeMap) transaction;
@@ -50,6 +66,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         String accountNo = r.get("accountNo").toString();
 
         Log.e("accountNo", accountNo);
+        Log.d("TAG", "onBindViewHolder: amount" +amount);
 
 
         holder.amount.setText(amount.toString());
@@ -59,7 +76,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public int getItemCount() {
-        return transactionList.size();
+        if(this.transactionList != null){
+            return this.transactionList.size();
+        }
+        return 0;
     }
 
 
