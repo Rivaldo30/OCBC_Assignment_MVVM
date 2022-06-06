@@ -51,11 +51,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(@NonNull TransactionAdapterVH holder, int position) {
 
-//        holder.accountHolder.setText(this.transactionList.get(position).getReceipient().getAccountHolder().toString());
-//        holder.accountNo.setText(this.transactionList.get(position).getReceipient().getAccountNo());
-//        holder.amount.setText((int) this.transactionList.get(position).getAmount());
-
-
         Object transaction = transactionList.get(position);
         LinkedTreeMap<Object,Object> t = (LinkedTreeMap) transaction;
 
