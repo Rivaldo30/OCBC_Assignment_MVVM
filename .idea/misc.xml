@@ -10,7 +10,8 @@
         <entry key="app/src/main/res/drawable/card_view.xml" value="0.2255" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.21965579710144928" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2862762451171875" />
-        <entry key="app/src/main/res/layout/row_transaction.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.19972826086956522" />
+        <entry key="app/src/main/res/layout/row_transaction.xml" value="0.28147583007812504" />
       </map>
     </option>
   </component>

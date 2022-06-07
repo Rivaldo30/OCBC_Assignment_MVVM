@@ -1,4 +1,4 @@
-package id.ac.uversrivaldo.ocbc_assignment.View.login;
+package id.ac.uversrivaldo.ocbc_assignment.View;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,15 +17,14 @@ import androidx.lifecycle.ViewModelProvider;
 import id.ac.uversrivaldo.ocbc_assignment.Model.LoginResponse;
 import id.ac.uversrivaldo.ocbc_assignment.R;
 
-import id.ac.uversrivaldo.ocbc_assignment.View.home.MainActivity;
-import id.ac.uversrivaldo.ocbc_assignment.viewmodels.MainActivityViewModel;
+import id.ac.uversrivaldo.ocbc_assignment.ViewModels.LoginViewModel;
 
-public class LoginActivity extends AppCompatActivity{
+public class LoginView extends AppCompatActivity{
 
     public static final String SHARED_PREF_NAME = "my_shared_pref";
-    EditText editText1, editText2;
+    EditText userName, Password;
     Button btnLogin, btnRegister;
-    MainActivityViewModel mMainActivityViewModel;
+    LoginViewModel mActivityViewModel;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String username;
@@ -40,9 +39,9 @@ public class LoginActivity extends AppCompatActivity{
         sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        editText1 = findViewById(R.id.username);
-        editText2 = findViewById(R.id.password);
+        mActivityViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        userName = findViewById(R.id.username);
+        Password = findViewById(R.id.password);
 
         btnLogin = findViewById(R.id.LoginBtn);
         btnRegister = findViewById(R.id.RegisterBtn);
@@ -50,20 +49,36 @@ public class LoginActivity extends AppCompatActivity{
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                username = editText1.getText().toString();
-                password = editText2.getText().toString();
+                username = userName.getText().toString();
+                password = Password.getText().toString();
                 Log.d(TAG, "onClick- username:" +username);
                 Log.d(TAG, "onClick- password:" +password);
                 if (username.isEmpty() || password.isEmpty()) {
                     Log.d(TAG, "onClick: username is empty");
-                    Toast.makeText(LoginActivity.this, "Username / Password Required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginView.this, "Username / Password Required", Toast.LENGTH_SHORT).show();
                 } else {
-                    mMainActivityViewModel.setlogin(username, password, this);
+                    mActivityViewModel.setlogin(username, password, this);
                     login();
                 }
             }
         });
     }
+
+    private boolean validateUsername(){
+        String usernameInput = userName.getText().toString().trim();
+
+        if(usernameInput.isEmpty()){
+            userName.setError("Field can't empty");
+            return false;
+        } else if(usernameInput.length() > 3) {
+            userName.setError("username too short");
+            return false;
+        } else {
+            userName.setError(null);
+            return true;
+        }
+    }
+
 
     public void saveUser(String username, String accountNo, String token){
         editor.putString("username", username);
@@ -74,27 +89,17 @@ public class LoginActivity extends AppCompatActivity{
 
     }
 
-    /*final Observer<LoginResponse> nameObserver = new Observer<LoginResponse>() {
-        @Override
-        public void onChanged(LoginResponse loginResponse) {
-            saveUser(loginResponse.getUsername(),loginResponse.getAccountNo(), loginResponse.getToken());
-            Log.d(TAG, "onChanged-token: "+sharedPreferences.getString("token",""));
-            Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intentMain);
-        }
-    };*/
-
     public void login(){
-        mMainActivityViewModel.getDataLogin().observe(this, new Observer<LoginResponse>() {
+        mActivityViewModel.getDataLogin().observe(this, new Observer<LoginResponse>() {
             @Override
             public void onChanged(LoginResponse loginResponse) {
                 if (loginResponse.getError() != null){
-                    Toast.makeText(LoginActivity.this, loginResponse.getError(),
+                    Toast.makeText(LoginView.this, loginResponse.getError(),
                             Toast.LENGTH_SHORT).show();
                 }
                 else {
                     saveUser(loginResponse.getUsername(),loginResponse.getAccountNo(), loginResponse.getToken());
-                    Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intentMain = new Intent(LoginView.this, MainView.class);
                     startActivity(intentMain);
                 }
             }

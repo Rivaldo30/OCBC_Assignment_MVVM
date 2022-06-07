@@ -10,6 +10,16 @@ public class LoginResponse {
     private String error;
     private int balance;
 
+    public void loginResponse(String username, String password, String status, String accountNo, String token, String error, int balance) {
+        this.username = username;
+        this.password = password;
+        this.status = status;
+        this.accountNo = accountNo;
+        this.token = token;
+        this.error = error;
+        this.balance = balance;
+    }
+
     public String getError() {
         return error;
     }

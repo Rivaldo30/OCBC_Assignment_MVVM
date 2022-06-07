@@ -1,13 +1,11 @@
-package id.ac.uversrivaldo.ocbc_assignment.View.home;
+package id.ac.uversrivaldo.ocbc_assignment.View;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -19,25 +17,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.uversrivaldo.ocbc_assignment.Api.ApiClient;
 import id.ac.uversrivaldo.ocbc_assignment.Model.BalanceResponse;
 import id.ac.uversrivaldo.ocbc_assignment.R;
 import id.ac.uversrivaldo.ocbc_assignment.Model.Transaction;
 import id.ac.uversrivaldo.ocbc_assignment.Adapter.TransactionAdapter;
 import id.ac.uversrivaldo.ocbc_assignment.Model.TransactionsResponse;
-import id.ac.uversrivaldo.ocbc_assignment.viewmodels.MainActivityViewModel;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import id.ac.uversrivaldo.ocbc_assignment.ViewModels.BalanceViewModel;
+import id.ac.uversrivaldo.ocbc_assignment.ViewModels.TransactionsViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainView extends AppCompatActivity {
 
     public static final String SHARED_PREF_NAME = "my_shared_pref";
     TextView sgDollar, accNumber, accName, noResutlt;
     RecyclerView recyclerView;
     TransactionAdapter transactionAdapter;
     List<Transaction> transactionList = new ArrayList<>();
-    private MainActivityViewModel mMainActivityViewModel;
+    private TransactionsViewModel transactionsActivityViewModel;
+    private BalanceViewModel balanceActivityViewModel;
     private List<TransactionsResponse> transactions;
     private TransactionAdapter adapter;
     SharedPreferences sharedPreferences;
@@ -61,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         //intisialisasi ViewModel
-        mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        balanceActivityViewModel = new ViewModelProvider(this).get(BalanceViewModel.class);
+        transactionsActivityViewModel = new ViewModelProvider(this).get(TransactionsViewModel.class);
 
         balance();
         transactions();
@@ -75,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void balance(){
-        mMainActivityViewModel.setBalance(this);
-        mMainActivityViewModel.getmBalance().observe(this, new Observer<BalanceResponse>() {
+        balanceActivityViewModel.setBalance(this);
+        balanceActivityViewModel.getmBalance().observe(this, new Observer<BalanceResponse>() {
             @Override
             public void onChanged(BalanceResponse balanceResponse) {
                 if (balanceResponse.getStatus().isEmpty()){
@@ -92,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
     //model-ViewModel
     public void transactions(){
-        mMainActivityViewModel.setTransaction(this);
-        mMainActivityViewModel.getmTransactionObserver().observe(this, new Observer<TransactionsResponse>() {
+        transactionsActivityViewModel.setTransaction(this);
+        transactionsActivityViewModel.getmTransaction().observe(this, new Observer<TransactionsResponse>() {
             @Override
             public void onChanged(TransactionsResponse transactionsResponse) {
                 if (transactionsResponse.getData().isEmpty()) {

@@ -35,12 +35,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         notifyDataSetChanged();
     }
 
-//    public void setTransactionList(List<Transaction> transactionList){
-//        this.transactionList = transactionList;
-//        notifyDataSetChanged();
-//    }
-
-
     @NonNull
     @Override
     public TransactionAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -7,14 +7,10 @@ public class TransactionsResponse {
     private String status;
     private ArrayList data;
 
-    public TransactionsResponse() {
-    }
-
-    public TransactionsResponse(String status, ArrayList data) {
+    public void transactionsResponse(String status, ArrayList data) {
         this.status = status;
         this.data = data;
     }
-
 
     public String getStatus() {
         return status;

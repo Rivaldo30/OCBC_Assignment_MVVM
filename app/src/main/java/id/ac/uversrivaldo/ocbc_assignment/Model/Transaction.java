@@ -1,6 +1,6 @@
 package id.ac.uversrivaldo.ocbc_assignment.Model;
 
-public class Transaction {
+public class Transaction extends TransactionsResponse {
     private String transactionId;
     private Double amount;
     private String description;
@@ -8,12 +8,11 @@ public class Transaction {
     private Receipient receipient;
 
 
-    public Transaction(String transactionId, Double amount, String description, String transactionType, Receipient receipient) {
+    public void transactions (String transactionId, Double amount, String description, String transactionType) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.description = description;
         this.transactionType = transactionType;
-        this.receipient = receipient;
     }
 
 

@@ -2,15 +2,13 @@ package id.ac.uversrivaldo.ocbc_assignment.Api;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.androidnetworking.interceptors.HttpLoggingInterceptor;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -21,7 +19,6 @@ public class ApiClient {
 
     private static Retrofit retrofit;
     private static Retrofit getRetrofitNoAuth(){
-
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
