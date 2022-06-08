@@ -3,13 +3,11 @@
 <!-- ABOUT THE PROJECT -->
 
 ## Features:
-1.Register
+1.Login 
 <br>
-2.Login 
+2.Show Balance
 <br>
-3.Show Balance
-<br>
-4.Show history transaction
+3.Show history transaction
 
 ## Architecture : MVVM
 Model: houses the logic for the program, which is retrieved by the ViewModel upon its own receipt of input from the user through View.
