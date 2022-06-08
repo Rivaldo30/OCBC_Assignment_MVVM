@@ -63,7 +63,6 @@ public class ApiClient {
                 .baseUrl("https://green-thumb-64168.uc.r.appspot.com/")
                 .client(client)
                 .build();
-
         return retrofit;
 
     }

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OCBC_Assignment">
         <activity
+            android:name=".View.RegisterView"
+            android:exported="true"/>
+        <activity
             android:name=".View.LoginView"
             android:exported="true">
             <intent-filter>

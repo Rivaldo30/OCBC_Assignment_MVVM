@@ -39,8 +39,8 @@ public class TransactionsViewModel extends ViewModel {
         return mTransaction;
     }
 
-    public void setDataDummy(Transaction transaction){
-        mTransaction.postValue(transaction);
+    public void setDataDummy(TransactionsResponse transactionsResponse){
+        mTransaction.postValue(transactionsResponse);
     }
 
 }

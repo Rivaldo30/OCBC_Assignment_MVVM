@@ -1,10 +1,9 @@
 package id.ac.uversrivaldo.ocbc_assignment.logintest
 
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import id.ac.uversrivaldo.ocbc_assignment.Model.BalanceResponse
 import id.ac.uversrivaldo.ocbc_assignment.Model.Transaction
 import id.ac.uversrivaldo.ocbc_assignment.Model.TransactionsResponse
-import id.ac.uversrivaldo.ocbc_assignment.ViewModels.BalanceViewModel
 import id.ac.uversrivaldo.ocbc_assignment.ViewModels.TransactionsViewModel
 import org.junit.Assert
 import org.junit.Assert.assertEquals
@@ -15,7 +14,7 @@ import org.mockito.Mockito
 
 class TransactionsViewModelTest {
     private lateinit var transactionViewModel: TransactionsViewModel
-    private lateinit var user: Transaction
+    private lateinit var user: TransactionsResponse
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -24,18 +23,22 @@ class TransactionsViewModelTest {
     fun before() {
         transactionViewModel =
             TransactionsViewModel()
-        user = Mockito.mock(Transaction::class.java)
+        user = Mockito.mock(TransactionsResponse::class.java)
     }
 
     @Test
-    fun getTransactions() { // testing value on liveData
-        val userDummy = Transaction()
-        userDummy.transactions("sukses", 10.0, "qwdq", "www")
+    fun getTransactions() { // testing value on liveDat
+        val data = ArrayList<Transaction>()
+        val dataDummy = Transaction()
+        val userDummy = TransactionsResponse()
+        dataDummy.transactions("test",100.0,"test","ok")
+        data.add(dataDummy)
+        userDummy.transactionsResponse("success",data)
         transactionViewModel.setDataDummy(userDummy)
-        val data = LiveDataTestUtil.getValue(transactionViewModel.getmTransaction())
-        Assert.assertNotNull(data)
-        assertEquals("data null", userDummy, data)
-        println("dataDummyTransaction-transactionId: ${data.status}")
-        println("dataDummyTransaction-transactionId: ${data.data}")
+        val liveData = LiveDataTestUtil.getValue(transactionViewModel.getmTransaction())
+        Assert.assertNotNull(liveData)
+        assertEquals("data null", userDummy, liveData)
+        println("dataDummyTransaction-status: ${liveData.status}")
+        println("dataDummyTransaction-data: ${liveData.data}")
     }
 }

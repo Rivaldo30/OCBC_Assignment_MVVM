@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,14 @@ public class LoginView extends AppCompatActivity{
 
         btnLogin = findViewById(R.id.LoginBtn);
         btnRegister = findViewById(R.id.RegisterBtn);
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toRegis = new Intent(LoginView.this, RegisterView.class);
+                startActivity(toRegis);
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

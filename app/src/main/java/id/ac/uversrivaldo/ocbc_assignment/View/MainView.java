@@ -1,6 +1,7 @@
 package id.ac.uversrivaldo.ocbc_assignment.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +29,7 @@ import id.ac.uversrivaldo.ocbc_assignment.ViewModels.TransactionsViewModel;
 public class MainView extends AppCompatActivity {
 
     public static final String SHARED_PREF_NAME = "my_shared_pref";
-    TextView sgDollar, accNumber, accName, noResutlt;
+    TextView sgDollar, accNumber, accName, noResutlt, btnLogout;
     RecyclerView recyclerView;
     TransactionAdapter transactionAdapter;
     List<Transaction> transactionList = new ArrayList<>();
@@ -52,6 +53,17 @@ public class MainView extends AppCompatActivity {
         noResutlt = findViewById(R.id.noResultTv);
         recyclerView = findViewById(R.id.recycleView);
 
+        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+                Intent intent = new Intent(MainView.this, LoginView.class );
+                startActivity(intent);
+            }
+        });
 
         adapter = new TransactionAdapter(this, transactionList);
         recyclerView.setAdapter(adapter);
@@ -94,7 +106,6 @@ public class MainView extends AppCompatActivity {
             @Override
             public void onChanged(TransactionsResponse transactionsResponse) {
                 if (transactionsResponse.getData().isEmpty()) {
-
                     noResutlt.setVisibility(View.VISIBLE);
                 } else {
                     transactionAdapter = new TransactionAdapter(transactionList);
